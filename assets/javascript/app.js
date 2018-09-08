@@ -73,40 +73,43 @@ var triviaGame = {
 
     // CREATE OBJECT METHOD TO DISPLAY TRIVIA QUESTION ALONG WITH ANSWERS
     loadQuestion: function () {
-        $("#the-quiz").html("<h2 class='mb-3'>"+this.questionsArr[this.currentQuestionIndex].question+"</h2>")
+        if (this.currentQuestionIndex >= this.questionsArr.length) {
+            $("#the-quiz").html("<h2>GAME OVER</h2><br><p>You got " + this.correct + " answers right and " + this.incorrect + " answers wrong.</p><br>");
+            this.resetGame();
+        } else {
 
-        for (let i = 0; i < this.questionsArr[this.currentQuestionIndex].options.length; i++) {
-            const element = this.questionsArr[this.currentQuestionIndex].options[i];
-            console.log(element);
-            var newOptionButton = $("<button>");
-            newOptionButton.attr({
-                type: "button",
-                id: [i],
-                name: element,
-            })
-            newOptionButton.addClass("btn btn-dark btn-lg border border-light btn-block w-75 m-auto");
-            newOptionButton.text(element);
-            // <button type="button" name="START" id="START" class="btn btn-dark btn-lg border border-light"></button>
-            $("#the-quiz").append(newOptionButton);
-        }
-        var answer = parseInt(this.questionsArr[this.currentQuestionIndex].answer);
+            $("#the-quiz").html("<h2 class='mb-3'>" + this.questionsArr[this.currentQuestionIndex].question + "</h2>")
 
-        $("button").on("click", function (){
-            console.log(triviaGame.questionsArr[triviaGame.currentQuestionIndex].answer);
-            var anwserCheck = parseInt(this.id);
-            if (anwserCheck === answer) {
-                console.log("Correct")
-                triviaGame.currentQuestionIndex++
-                triviaGame.loadQuestion();
-            } else {
-                console.log("Incorrect")
-                console.log(anwserCheck);
-                
-                triviaGame.currentQuestionIndex++
-                triviaGame.loadQuestion();
+            for (let i = 0; i < this.questionsArr[this.currentQuestionIndex].options.length; i++) {
+                const element = this.questionsArr[this.currentQuestionIndex].options[i];
+                var newOptionButton = $("<button>");
+                newOptionButton.attr({
+                    type: "button",
+                    id: [i],
+                    name: element,
+                })
+                newOptionButton.addClass("btn btn-dark btn-lg border border-light btn-block w-75 m-auto");
+                newOptionButton.text(element);
+                $("#the-quiz").append(newOptionButton);
             }
-        })
+            var answer = parseInt(this.questionsArr[this.currentQuestionIndex].answer);
 
+            $("button").on("click", function () {
+                console.log(triviaGame.questionsArr[triviaGame.currentQuestionIndex].answer);
+                var anwserCheck = parseInt(this.id);
+                if (anwserCheck === answer) {
+                    console.log("Correct")
+                    triviaGame.currentQuestionIndex++
+                    triviaGame.correct++
+                    triviaGame.loadQuestion();
+                } else {
+                    console.log("Incorrect")
+                    triviaGame.currentQuestionIndex++
+                    triviaGame.incorrect++
+                    triviaGame.loadQuestion();
+                }
+            })
+        }
     },
     // ONCE ANSWERED STORE INTO VARIABLES WHETHER ANSWER WAS CORRECT OR INCORRECT
     // // // !! WILL CREATE OBJECT METHOD FOR TIMER LATER...
@@ -118,14 +121,26 @@ var triviaGame = {
     // CREATE OBJECT METHOD TO CREATE TIMER FOR INBETWEEN QUESTIONS
 
     // CREATE OBJECT METHOD TO RESET THE TRIVIA GAME
+    resetGame: function () {
+        this.currentQuestionIndex = 0;
+        this.correct = 0;
+        this.incorrect = 0;
+
+        $("#START").text("RESET").detach().show().appendTo("#the-quiz");
+        $("#START").on("click", function () {
+            $("#START").detach().hide().appendTo("#start-hide");
+            triviaGame.loadQuestion();
+        })
+
+    }
 
     // <//END OBJECT>
 };
 
 // CALL THE OBJECT AND START GAME
-$(document).ready (
+$(document).ready(
 
-    $("#START").on("click", function() {
+    $("#START").on("click", function () {
         $("#START").detach().hide().appendTo("#start-hide");
         triviaGame.loadQuestion();
     })

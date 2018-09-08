@@ -1,18 +1,19 @@
 body, html {
-    background-image:url("../images/background.jpg");
+    /* background-image:url("../images/background.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     width: 100%;
     
-    /* Full height */
     height: 100%; 
 
-    /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
 
 }
+#bg { position: fixed; top: 0; left: 0; }
+.bgwidth { width: 100%; }
+.bgheight { height: 100%; }
 body {
     margin: 0;
     min-height: 100%;

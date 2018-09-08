@@ -1,4 +1,5 @@
-body, html {
+body,
+html {
     /* background-image:url("../images/background.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -9,33 +10,48 @@ body, html {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover; */
-
 }
-#bg { position: fixed; top: 0; left: 0; }
-.bgwidth { width: 100%; }
-.bgheight { height: 100%; }
+
+#bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.bgwidth {
+    width: 100%;
+}
+
+.bgheight {
+    height: 100%;
+}
+
 body {
     margin: 0;
     min-height: 100%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     letter-spacing: 0.1em;
 }
+
 @font-face {
     font-family: "Game of Thrones";
     src: url("../font/Game\ of\ Thrones.ttf")
 }
+
 h1 {
     font-family: "Game of Thrones";
     letter-spacing: 0.1em;
     margin: 5px;
 }
+
 h2.my-4 {
-    font-family: "Game of Thrones";
+    /* font-family: "Game of Thrones"; */
     font-size: 1.75em;
     letter-spacing: 0.1em;
 }
+
 .translucent {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
 }
 
 /* .container-fluid.m-auto {
@@ -44,7 +60,13 @@ h2.my-4 {
     top: 50%;
     transform: translateY(-50%);
 } */
+button.btn:hover {
+    background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
+        radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
 
-button.btn.m-auto {
-    margin-bottom: 5px;
+}
+
+.bg-gold {
+    background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
+        radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
 }

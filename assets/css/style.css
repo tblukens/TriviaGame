@@ -1,4 +1,38 @@
+body, html {
+    background-image:url("../images/background.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
 h2 {
     font-size: 1.75em;
     letter-spacing: 0.1em;
+}
+.translucent {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* .container-fluid.m-auto {
+    
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+} */
+
+button.btn.m-auto {
+    margin-bottom: 5px;
 }

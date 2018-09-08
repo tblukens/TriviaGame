@@ -78,7 +78,7 @@ var triviaGame = {
             this.resetGame();
         } else {
 
-            $("#the-quiz").html("<h2 class='mb-3'>" + this.questionsArr[this.currentQuestionIndex].question + "</h2>")
+            $("#the-quiz").html("<h2 class='my-4'>" + this.questionsArr[this.currentQuestionIndex].question + "</h2><br>")
 
             for (let i = 0; i < this.questionsArr[this.currentQuestionIndex].options.length; i++) {
                 const element = this.questionsArr[this.currentQuestionIndex].options[i];
@@ -90,7 +90,9 @@ var triviaGame = {
                 })
                 newOptionButton.addClass("btn btn-dark btn-lg border border-light btn-block w-75 m-auto");
                 newOptionButton.text(element);
+                var breakSpace = $("<br>")
                 $("#the-quiz").append(newOptionButton);
+                $("#the-quiz").append(breakSpace);
             }
             var answer = parseInt(this.questionsArr[this.currentQuestionIndex].answer);
 

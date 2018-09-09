@@ -10,7 +10,7 @@ html {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover; */
-    
+    margin-top: 30px;
     color: white;
     letter-spacing: 2em;
     text-shadow: 2px 2px 4px #000000;
@@ -37,6 +37,10 @@ body {
     letter-spacing: 0.1em;
 }
 
+header {
+    margin-bottom: 30px;
+}
+
 @font-face {
     font-family: "Game of Thrones";
     src: url("../font/Game\ of\ Thrones.ttf")
@@ -48,12 +52,13 @@ h1 {
     margin: 5px;
 }
 
-h2.my-4 {
+h2 {
     /* font-family: "Game of Thrones"; */
     font-size: 1.75em;
     letter-spacing: 0.1em;
     color: white;
     text-shadow: 2px 2px 4px #000000;
+    margin-bottom: 20px;
 }
 
 .translucent {
@@ -66,6 +71,8 @@ h2.my-4 {
     top: 50%;
     transform: translateY(-50%);
 } */
+
+
 button.btn:hover {
     background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
         radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
@@ -88,13 +95,56 @@ button.btn:hover {
   }
 
 
-img#ASongofIce.mb-4.iceandfire,
-img#andFire.mb-4.iceandfire {
+img#ASongofIce.mb-1.iceandfire,
+img#andFire.mb-1.iceandfire {
 max-width: 340px;
 max-height: 160px;
 }
-img.mb-4 {
+img.mb-1 {
     max-height: 360px;
-    /* min-height: 240px; */
     height: 320px;
+}
+#the-quiz {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}   
+.buttonHolder {
+    margin-bottom: 10px;
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+
+    body, html {
+        margin-top: 2px;
+    }
+    header {
+        margin-bottom: 0;
+    }
+    h1.display-4 {
+        font-size: 3.5vw;
+    }
+    h2 {
+        /* font-family: "Game of Thrones"; */
+        font-size: 2.25vw;
+        margin: 0;
+    }
+    .timerCSS {  
+        font-size: 1.2em;
+    }
+    .bg-gold {
+        height: 30px;
+    }
+    button#0.btn,
+    button#1.btn,
+    button#2.btn,
+    button#3.btn {
+        font-size: 1.25vw;
+    }
+    #the-quiz {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .buttonHolder{
+        margin: 0;
+    }
 }

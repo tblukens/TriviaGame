@@ -79,27 +79,32 @@ var triviaGame = {
 
     // CREATE OBJECT METHOD TO DISPLAY TRIVIA QUESTION ALONG WITH ANSWERS
     loadQuestion: function () {
+        $("#START").off();
+        $("button").off();
         if (this.currentQuestionIndex >= this.questionsArr.length) {
-            var singularAnswer1 = "answer";
-            var singularAnswer2 = "answer";
             var singularQuestion = "question";
             if (this.correct === 0 || this.correct > 1) {
-                singularAnswer1 = "answers";
+                singularQuestion = "questions";
             }
             if (this.incorrect === 0 || this.incorrect > 1) {
-                singularAnswer2 = "answers";
+                singularQuestion = "questions";
             }
             if (this.unanswered === 0 || this.unanswered > 1) {
                 singularQuestion = "questions";
             }
-            $("#the-quiz").html("<h2>GAME OVER</h2><br><h2>Here are your scores:</h2><p>You got " + this.correct + " " + singularAnswer1 + " right and " + this.incorrect + " " + singularAnswer2 + " wrong.</p><p>You left " + this.unanswered + " "+singularQuestion+" unanswered.");
+            $("#the-quiz").html(
+                "<h2>GAME OVER</h2><h2>Here are your scores:</h2><p>You answered " + this.correct + " " + singularQuestion + " correct.</p><p>" +
+                "You answered " + this.incorrect + " " + singularQuestion + " incorrectly.</p>" +
+                "<p>You left " + this.unanswered + " " + singularQuestion + " unanswered.");
             this.resetGame();
         } else {
 
-            $("#the-quiz").html("<h2 class='my-4'>" + this.questionsArr[this.currentQuestionIndex].question + "</h2><br>")
+            $("#the-quiz").html("<h2 class=''>" + this.questionsArr[this.currentQuestionIndex].question + "</h2>")
 
             for (let i = 0; i < this.questionsArr[this.currentQuestionIndex].options.length; i++) {
                 const element = this.questionsArr[this.currentQuestionIndex].options[i];
+                var newButtonDiv = $("<div>");
+                newButtonDiv.addClass("buttonHolder col-md-8 col-lg-6 mx-auto")
                 var newOptionButton = $("<button>");
                 newOptionButton.attr({
                     type: "button",
@@ -107,10 +112,12 @@ var triviaGame = {
                     name: element,
                     value: element
                 })
-                newOptionButton.addClass("btn btn-dark btn-lg border border-light btn-block w-75 m-auto");
+                newOptionButton.addClass("btn btn-dark mx-auto border border-light btn-block");
                 newOptionButton.text(element);
-                var breakSpace = $("<br>")
-                $("#the-quiz").append(newOptionButton);
+                $("#the-quiz").append(newButtonDiv);
+                newButtonDiv.append(newOptionButton);
+                var breakSpace = $("");
+                // $("#the-quiz").append(newOptionButton);
                 $("#the-quiz").append(breakSpace);
             }
             var answer = parseInt(this.questionsArr[this.currentQuestionIndex].answer);
@@ -147,7 +154,7 @@ var triviaGame = {
 
     // CREATE TIMER
     timer1: function () {
-        $("#timer").html("<p class='timerCSS'>Time Remaining: " + triviaGame.maxTime + " seconds.</span>")
+        $("#timer").html("<p class='timerCSS'>Time Remaining: " + triviaGame.maxTime + " seconds.</p>")
         triviaGame.maxTime--;
         console.log(triviaGame.maxTime);
         if (triviaGame.maxTime < 0) {
@@ -187,7 +194,7 @@ var triviaGame = {
     incorrectDisplay: function () {
         this.stopMainTimer();
         this.secondaryTimer();
-        $("#the-quiz").html("<h2 class='my-4'>Sorry, the correct answer was: <br>" + this.questionsArr[this.currentQuestionIndex].options[this.questionsArr[this.currentQuestionIndex].answer] + "</h2><br>");
+        $("#the-quiz").html("<h2 class=''>Sorry, the correct answer was: <br>" + this.questionsArr[this.currentQuestionIndex].options[this.questionsArr[this.currentQuestionIndex].answer] + "</h2>");
         this.displayImage();
         triviaGame.currentQuestionIndex++;
         triviaGame.incorrect++;
@@ -197,7 +204,7 @@ var triviaGame = {
     correctDisplay: function () {
         this.stopMainTimer();
         this.secondaryTimer();
-        $("#the-quiz").html("<h2 class='my-4'>Correct! Your answer: <br>" + this.questionsArr[this.currentQuestionIndex].options[this.questionsArr[this.currentQuestionIndex].answer] + "</h2><br>");
+        $("#the-quiz").html("<h2 class=''>Correct! Your answer:<br>" + this.questionsArr[this.currentQuestionIndex].options[this.questionsArr[this.currentQuestionIndex].answer] + "</h2>");
         this.displayImage();
         triviaGame.currentQuestionIndex++;
         triviaGame.correct++;
@@ -207,7 +214,7 @@ var triviaGame = {
     timesUpDisplay: function () {
         this.stopMainTimer();
         this.secondaryTimer();
-        $("#the-quiz").html("<h2 class='my-4'>Sorry, time's up!<br>The correct answer was:<br>" + this.questionsArr[this.currentQuestionIndex].options[this.questionsArr[this.currentQuestionIndex].answer] + " </h2><br>");
+        $("#the-quiz").html("<h2 class=''>Sorry, time's up! The correct answer was:<br>" + this.questionsArr[this.currentQuestionIndex].options[this.questionsArr[this.currentQuestionIndex].answer] + " </h2>");
         this.displayImage();
         triviaGame.currentQuestionIndex++;
         triviaGame.unanswered++;
@@ -235,8 +242,8 @@ var triviaGame = {
                 src: "assets/images/and Fire.gif",
                 alt: currentImage,
             });
-            addNewImg.addClass("mb-4 iceandfire")
-            addNewImg2.addClass("mb-4 iceandfire")
+            addNewImg.addClass("mb-1 iceandfire img-fluid border border-light")
+            addNewImg2.addClass("mb-1 iceandfire img-fluid border border-light")
             $("#the-quiz").append(addNewImg);
             $("#the-quiz").append(addNewImg2);
         } else {
@@ -249,7 +256,7 @@ var triviaGame = {
                 src: "assets/images/" + currentImage + ".gif",
                 alt: currentImage,
             });
-            addNewImg.addClass("mb-4")
+            addNewImg.addClass("mb-1 img-fluid border border-light")
 
             $("#the-quiz").append(addNewImg);
         }
@@ -257,14 +264,19 @@ var triviaGame = {
 
     // CREATE OBJECT METHOD TO RESET THE TRIVIA GAME
     resetGame: function () {
+        this.stopMainTimer();
+        this.stopSecondaryTimer();
         this.currentQuestionIndex = 0;
         this.correct = 0;
         this.incorrect = 0;
+        this.maxTime = 30;
+        this.intermissionTime = 10;
 
         $("#START").attr('value', "RESET").text("RESET").detach().show().appendTo("#the-quiz");
         $("#START").on("click", function () {
             $("#START").detach().hide().appendTo("#start-hide");
             triviaGame.loadQuestion();
+            return;
         })
         return;
 

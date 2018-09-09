@@ -10,6 +10,10 @@ html {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover; */
+    
+    color: white;
+    letter-spacing: 2em;
+    text-shadow: 2px 2px 4px #000000;
 }
 
 #bg {
@@ -48,6 +52,8 @@ h2.my-4 {
     /* font-family: "Game of Thrones"; */
     font-size: 1.75em;
     letter-spacing: 0.1em;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
 }
 
 .translucent {
@@ -63,10 +69,32 @@ h2.my-4 {
 button.btn:hover {
     background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
         radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
+        letter-spacing: 0.25em;
+        text-shadow: 2px 2px 4px #000000;
 
 }
 
 .bg-gold {
+    height: 40px;
     background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
         radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
+        display: inline-block;
+}
+
+.timerCSS {  
+    font-size: 1.5em;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+  }
+
+
+img#ASongofIce.mb-4.iceandfire,
+img#andFire.mb-4.iceandfire {
+max-width: 340px;
+max-height: 160px;
+}
+img.mb-4 {
+    max-height: 360px;
+    /* min-height: 240px; */
+    height: 320px;
 }

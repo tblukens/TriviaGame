@@ -1,80 +1,98 @@
 // CREATE AN OBJECT TO STORE TRIVIA GAME
 // <START OBJECT>
+var intervalId1;
+var intervalId2;
+
 var triviaGame = {
 
 
     // CREATE AN ARRAY WITH QUESTIONS AND ANSWERS. ASSIGN THE CORRECT ANSWER INSIDE ARRAY
     questionsArr: [{
-            question: "Who is king of Westeros when the series begins?",
-            options: ["Aerys Targaryen", "Eddard Stark", "Robert Baratheon", "Tywin Lannister"],
-            answer: 2,
-            answerText: "",
-        },
-        {
-            question: "What noble house is Catelyn Stark from?",
-            options: ["House Tyrell", "House Tully", "House Lannister", "House Stark"],
-            answer: 1,
-            answerText: "",
-        },
-        {
-            question: "Who is the true heir to the iron throne after Robert Baratheon's death?",
-            options: ["Joffrey Baratheon", "Stannis Baratheon", "Renly Baratheon", "Eddard Stark"],
-            answer: 1,
-            answerText: "",
-        },
-        {
-            question: "What was the name of Robb Stark's wife?",
-            options: ["Talisa", "Shae", "Ros", "Mary"],
-            answer: 0,
-            answerText: "",
-        },
-        {
-            question: "What is the name of the novels the show Game of Thrones is based off of?",
-            options: ["Dances With Wolves", "The Wheel of Time", "Everybody Poops", "A Song of Ice and Fire"],
-            answer: 3,
-            answerText: "",
-        },
-        {
-            question: "What noble house has a sigil of a silver trout?",
-            options: ["House Tully", "House Greyjoy", "House Stark", "House Tyrell"],
-            answer: 0,
-            answerText: "",
-        },
-        {
-            question: "Who was Hand of the King before Eddard Stark?",
-            options: ["Tywin Lannister", "Jon Arryn", "Renly Baratheon", "Tyrion Lannister"],
-            answer: 1,
-            answerText: "",
-        },
-        {
-            question: "How did Daenerys Targaryen eventually hatch her dragon eggs?",
-            options: ["In a lightning storm", "In a funeral pyre", "In a fireplace", "In a frozen cave"],
-            answer: 1,
-            answerText: "",
-        },
-        {
-            question: "The phrase 'Valar Morghulis' or 'all men must die' is usually responded with:",
-            options: ["Valar Dohaeris or 'all men must serve'", "Valar Rohnas or 'all men must live'", "Valar GoGo or 'all men must dance'"],
-            answer: 0,
-            answerText: "",
-        },
-        {
-            question: "Who is Joffrey, Myrcella and Tommen's real father?",
-            options: ["Lancel Lannister", "Robert Baratheon", "Jaime Lannister", "Tyrion Lannister"],
-            answer: 2,
-            answerText: "",
-        },
+        question: "Who is king of Westeros when the series begins?",
+        options: ["Aerys Targaryen", "Eddard Stark", "Robert Baratheon", "Tywin Lannister"],
+        answer: 2,
+        answerText: "",
+    },
+    {
+        question: "What noble house is Catelyn Stark from?",
+        options: ["House Tyrell", "House Tully", "House Lannister", "House Stark"],
+        answer: 1,
+        answerText: "",
+    },
+    {
+        question: "Who is the true heir to the iron throne after Robert Baratheon's death?",
+        options: ["Joffrey Baratheon", "Stannis Baratheon", "Renly Baratheon", "Eddard Stark"],
+        answer: 1,
+        answerText: "",
+    },
+    {
+        question: "What was the name of Robb Stark's wife?",
+        options: ["Talisa", "Shae", "Ros", "Mary"],
+        answer: 0,
+        answerText: "",
+    },
+    {
+        question: "What is the name of the novels the show Game of Thrones is based off of?",
+        options: ["Dances With Wolves", "The Wheel of Time", "Everybody Poops", "A Song of Ice and Fire"],
+        answer: 3,
+        answerText: "",
+    },
+    {
+        question: "What noble house has a sigil of a silver trout?",
+        options: ["House Tully", "House Greyjoy", "House Stark", "House Tyrell"],
+        answer: 0,
+        answerText: "",
+    },
+    {
+        question: "Who was Hand of the King before Eddard Stark?",
+        options: ["Tywin Lannister", "Jon Arryn", "Renly Baratheon", "Tyrion Lannister"],
+        answer: 1,
+        answerText: "",
+    },
+    {
+        question: "How did Daenerys Targaryen eventually hatch her dragon eggs?",
+        options: ["In a lightning storm", "In a funeral pyre", "In a fireplace", "In a frozen cave"],
+        answer: 1,
+        answerText: "",
+    },
+    {
+        question: "The phrase 'Valar Morghulis' or 'all men must die' is usually responded with:",
+        options: ["Valar Dohaeris: 'all men must serve'", "Valar Rohnas: 'all men must live'", "Valar GoGo: 'all men must dance'"],
+        answer: 0,
+        answerText: "",
+    },
+    {
+        question: "Who is Joffrey, Myrcella and Tommen's real father?",
+        options: ["Lancel Lannister", "Robert Baratheon", "Jaime Lannister", "Tyrion Lannister"],
+        answer: 2,
+        answerText: "",
+    },
     ], //** POSSIBLY CREATE ARRAY TO HOLD CORRECT AND INCORRECT QUESTIONS? ?? **//
     // CREATE VARIABLES TO TRACK CORRECT, WRONG, AND UNANSWERED COUNT
     currentQuestionIndex: 0,
     correct: 0,
     incorrect: 0,
     unanswered: 0,
+    maxTime: 30,
+    intermissionTime: 10,
+
 
     // CREATE OBJECT METHOD TO DISPLAY TRIVIA QUESTION ALONG WITH ANSWERS
     loadQuestion: function () {
         if (this.currentQuestionIndex >= this.questionsArr.length) {
-            $("#the-quiz").html("<h2>GAME OVER</h2><br><p>You got " + this.correct + " answers right and " + this.incorrect + " answers wrong.</p><br>");
+            var singularAnswer1 = "answer";
+            var singularAnswer2 = "answer";
+            var singularQuestion = "question";
+            if (this.correct === 0 || this.correct > 1) {
+                singularAnswer1 = "answers";
+            }
+            if (this.incorrect === 0 || this.incorrect > 1) {
+                singularAnswer2 = "answers";
+            }
+            if (this.unanswered === 0 || this.unanswered > 1) {
+                singularQuestion = "questions";
+            }
+            $("#the-quiz").html("<h2>GAME OVER</h2><br><h2>Here are your scores:</h2><p>You got " + this.correct + " " + singularAnswer1 + " right and " + this.incorrect + " " + singularAnswer2 + " wrong.</p><p>You left " + this.unanswered + " "+singularQuestion+" unanswered.");
             this.resetGame();
         } else {
 
@@ -110,28 +128,132 @@ var triviaGame = {
                     $(this).html(val)
                 }
             })
+
+            // ONCE ANSWERED STORE INTO VARIABLES WHETHER ANSWER WAS CORRECT OR INCORRECT
             $("button").on("click", function () {
                 var anwserCheck = parseInt(this.id);
                 if (anwserCheck === answer) {
-                    triviaGame.currentQuestionIndex++
-                    triviaGame.correct++
-                    triviaGame.loadQuestion();
+
+                    triviaGame.correctDisplay();
                 } else {
-                    triviaGame.currentQuestionIndex++
-                    triviaGame.incorrect++
-                    triviaGame.loadQuestion();
+                    triviaGame.incorrectDisplay();
                 }
             })
+
+            this.mainTimer();
+            return;
         }
     },
-    // ONCE ANSWERED STORE INTO VARIABLES WHETHER ANSWER WAS CORRECT OR INCORRECT
-    // // // !! WILL CREATE OBJECT METHOD FOR TIMER LATER...
-    // AFTER TIMER OR QUESTION ANSWERED STORE INTO VARIABLES AND MOVE TO NEXT QUESTION.
-    // REPEAT UNTIL DONE
+
+    // CREATE TIMER
+    timer1: function () {
+        $("#timer").html("<p class='timerCSS'>Time Remaining: " + triviaGame.maxTime + " seconds.</span>")
+        triviaGame.maxTime--;
+        console.log(triviaGame.maxTime);
+        if (triviaGame.maxTime < 0) {
+            triviaGame.timesUpDisplay();
+            triviaGame.stopMainTimer();
+        }
+
+    },
 
     // CREATE OBJECT METHOD FOR TIMER TO TRACK TIME AND GO TO NEXT QUESTION WHEN DONE
+    mainTimer: function () {
+        intervalId1 = setInterval(triviaGame.timer1, 1000)
+    },
+    stopMainTimer: function () {
+        clearInterval(intervalId1)
+    },
+    timer2: function () {
+        triviaGame.intermissionTime--;
+        console.log(triviaGame.intermissionTime);
+
+        if (triviaGame.intermissionTime <= 0) {
+            triviaGame.stopSecondaryTimer();
+            triviaGame.intermissionTime = 10;
+            triviaGame.loadQuestion();
+        }
+
+    },
 
     // CREATE OBJECT METHOD TO CREATE TIMER FOR INBETWEEN QUESTIONS
+    secondaryTimer: function () {
+        intervalId2 = setInterval(triviaGame.timer2, 1000)
+    },
+    stopSecondaryTimer: function () {
+        clearInterval(intervalId2)
+    },
+    // AFTER TIMER OR QUESTION ANSWERED STORE INTO VARIABLES AND MOVE TO NEXT QUESTION.
+    incorrectDisplay: function () {
+        this.stopMainTimer();
+        this.secondaryTimer();
+        $("#the-quiz").html("<h2 class='my-4'>Sorry, the correct answer was: <br>" + this.questionsArr[this.currentQuestionIndex].options[this.questionsArr[this.currentQuestionIndex].answer] + "</h2><br>");
+        this.displayImage();
+        triviaGame.currentQuestionIndex++;
+        triviaGame.incorrect++;
+        this.maxTime = 30;
+        // triviaGame.loadQuestion();
+    },
+    correctDisplay: function () {
+        this.stopMainTimer();
+        this.secondaryTimer();
+        $("#the-quiz").html("<h2 class='my-4'>Correct! Your answer: <br>" + this.questionsArr[this.currentQuestionIndex].options[this.questionsArr[this.currentQuestionIndex].answer] + "</h2><br>");
+        this.displayImage();
+        triviaGame.currentQuestionIndex++;
+        triviaGame.correct++;
+        this.maxTime = 30;
+        // triviaGame.loadQuestion();
+    },
+    timesUpDisplay: function () {
+        this.stopMainTimer();
+        this.secondaryTimer();
+        $("#the-quiz").html("<h2 class='my-4'>Sorry, time's up!<br>The correct answer was:<br>" + this.questionsArr[this.currentQuestionIndex].options[this.questionsArr[this.currentQuestionIndex].answer] + " </h2><br>");
+        this.displayImage();
+        triviaGame.currentQuestionIndex++;
+        triviaGame.unanswered++;
+        this.maxTime = 30;
+    },
+    displayImage: function () {
+        var currentImage = this.questionsArr[this.currentQuestionIndex].options[this.questionsArr[this.currentQuestionIndex].answer];
+
+        var imageID = currentImage.replace(/ /g, '');
+
+        addNewImg = $("<img>");
+        addNewImg2 = $("<img>");
+        if (currentImage === "A Song of Ice and Fire") {
+            var songOf = currentImage.slice(0, 13);
+            songOf = songOf.replace(/ /g, '');
+            var andFire = currentImage.slice(13);
+            andFire = andFire.replace(/ /g, '');
+            addNewImg.attr({
+                id: songOf,
+                src: "assets/images/A Song of Ice.gif",
+                alt: currentImage,
+            });
+            addNewImg2.attr({
+                id: andFire,
+                src: "assets/images/and Fire.gif",
+                alt: currentImage,
+            });
+            addNewImg.addClass("mb-4 iceandfire")
+            addNewImg2.addClass("mb-4 iceandfire")
+            $("#the-quiz").append(addNewImg);
+            $("#the-quiz").append(addNewImg2);
+        } else {
+            if (currentImage === "Valar Dohaeris: 'all men must serve'") {
+                currentImage = "Valar Dohaeris";
+                imageID = "Valar_Dohaeris";
+            }
+            addNewImg.attr({
+                id: imageID,
+                src: "assets/images/" + currentImage + ".gif",
+                alt: currentImage,
+            });
+            addNewImg.addClass("mb-4")
+
+            $("#the-quiz").append(addNewImg);
+        }
+    },
 
     // CREATE OBJECT METHOD TO RESET THE TRIVIA GAME
     resetGame: function () {
@@ -144,9 +266,9 @@ var triviaGame = {
             $("#START").detach().hide().appendTo("#start-hide");
             triviaGame.loadQuestion();
         })
+        return;
 
     }
-
     // <//END OBJECT>
 };
 

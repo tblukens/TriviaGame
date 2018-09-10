@@ -82,16 +82,7 @@ var triviaGame = {
         $("#START").off();
         $("button").off();
         if (this.currentQuestionIndex >= this.questionsArr.length) {
-            var singularQuestion = "question";
-            if (this.correct === 0 || this.correct > 1) {
-                singularQuestion = "questions";
-            }
-            if (this.incorrect === 0 || this.incorrect > 1) {
-                singularQuestion = "questions";
-            }
-            if (this.unanswered === 0 || this.unanswered > 1) {
-                singularQuestion = "questions";
-            }
+            var singularQuestion = "question(s)";
             $("#the-quiz").html(
                 "<h2>GAME OVER</h2><h2>Here are your scores:</h2><p>You answered " + this.correct + " " + singularQuestion + " correct.</p><p>" +
                 "You answered " + this.incorrect + " " + singularQuestion + " incorrectly.</p>" +

@@ -74,7 +74,7 @@ var triviaGame = {
     incorrect: 0,
     unanswered: 0,
     maxTime: 30,
-    intermissionTime: 10,
+    intermissionTime: 5,
 
 
     // CREATE OBJECT METHOD TO DISPLAY TRIVIA QUESTION ALONG WITH ANSWERS
@@ -261,7 +261,7 @@ var triviaGame = {
         this.correct = 0;
         this.incorrect = 0;
         this.maxTime = 30;
-        this.intermissionTime = 10;
+        this.intermissionTime = 5;
 
         $("#START").attr('value', "RESET").text("RESET").detach().show().appendTo("#the-quiz");
         $("#START").on("click", function () {

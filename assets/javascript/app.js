@@ -73,8 +73,8 @@ var triviaGame = {
     correct: 0,
     incorrect: 0,
     unanswered: 0,
-    maxTime: 30,
-    intermissionTime: 5,
+    maxTime: 12,
+    intermissionTime: 3,
 
 
     // CREATE OBJECT METHOD TO DISPLAY TRIVIA QUESTION ALONG WITH ANSWERS
@@ -168,7 +168,7 @@ var triviaGame = {
 
         if (triviaGame.intermissionTime <= 0) {
             triviaGame.stopSecondaryTimer();
-            triviaGame.intermissionTime = 10;
+            triviaGame.intermissionTime = 3;
             triviaGame.loadQuestion();
         }
 
@@ -189,7 +189,7 @@ var triviaGame = {
         this.displayImage();
         triviaGame.currentQuestionIndex++;
         triviaGame.incorrect++;
-        this.maxTime = 30;
+        this.maxTime = 12;
         // triviaGame.loadQuestion();
     },
     correctDisplay: function () {
@@ -199,7 +199,7 @@ var triviaGame = {
         this.displayImage();
         triviaGame.currentQuestionIndex++;
         triviaGame.correct++;
-        this.maxTime = 30;
+        this.maxTime = 12;
         // triviaGame.loadQuestion();
     },
     timesUpDisplay: function () {
@@ -209,7 +209,7 @@ var triviaGame = {
         this.displayImage();
         triviaGame.currentQuestionIndex++;
         triviaGame.unanswered++;
-        this.maxTime = 30;
+        this.maxTime = 12;
     },
     displayImage: function () {
         var currentImage = this.questionsArr[this.currentQuestionIndex].options[this.questionsArr[this.currentQuestionIndex].answer];
@@ -260,8 +260,8 @@ var triviaGame = {
         this.currentQuestionIndex = 0;
         this.correct = 0;
         this.incorrect = 0;
-        this.maxTime = 30;
-        this.intermissionTime = 5;
+        this.maxTime = 12;
+        this.intermissionTime = 3;
 
         $("#START").attr('value', "RESET").text("RESET").detach().show().appendTo("#the-quiz");
         $("#START").on("click", function () {
